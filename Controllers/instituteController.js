@@ -16,7 +16,7 @@ exports.institutepost = async (req, res) => {
         if (preinstitute) {
             res.status(400).json({ error: "This institute already exist in our database" });
         } else {
-            const dateCreate = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
+            const dateCreate = moment(new Date()).format("DD-MM-YYYY hh:mm:ss");
 
             const instituteData = new institute({
                 Location, Discription, Admin_Id, datecreated: dateCreate
@@ -69,7 +69,7 @@ exports.deleteinstitute = async (req, res) => {
         res.status(200).json(deleteInstituteData);
     } catch (error) {
         res.status(400).json(error);
-        console.log("catch block error",error)
+        console.log("catch block error", error)
     }
 }
 
@@ -79,7 +79,7 @@ exports.updateInstitute = async (req, res) => {
     const { Location, Discription, Admin_Id } = req.body;
 
     try {
-        const dateUpdate = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
+        const dateUpdate = moment(new Date()).format("DD-MM-YYYY hh:mm:ss");
 
         const updateInstitutedata = await institute.findByIdAndUpdate({ _id: id }, {
             Location, Discription, Admin_Id, dateUpdated: dateUpdate
@@ -90,6 +90,6 @@ exports.updateInstitute = async (req, res) => {
         res.status(200).json(updateInstitutedata)
     } catch (error) {
         res.status(400).json(error);
-        console.log("catch block error",error)
+        console.log("catch block error", error)
     }
 }

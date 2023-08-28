@@ -24,6 +24,11 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 8
     },
+    Role: {
+        type: String,
+        enum: ['super_admin', 'admin', 'user'],
+        default: 'user'
+    },
     datecreated: Date,
     dateUpdated: Date
 });

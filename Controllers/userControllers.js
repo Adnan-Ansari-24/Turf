@@ -3,9 +3,9 @@ const moment = require("moment")
 
 // create user
 exports.userpost = async (req, res) => {
-    const { Name, Phone_Number, Password } = req.body;
+    const { Name, Phone_Number, Password, Role } = req.body;
 
-    if (!Name || !Phone_Number || !Password ) {
+    if (!Name || !Phone_Number || !Password || !Role) {
         res.status(400).json({ error: "All input is required" });
     }
 
@@ -18,7 +18,7 @@ exports.userpost = async (req, res) => {
             const dateCreate = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
 
             const userData = new user({
-                Name, Phone_Number, Password, datecreated: dateCreate
+                Name, Phone_Number, Password, Role, datecreated: dateCreate
             });
 
             await userData.save();
@@ -26,7 +26,7 @@ exports.userpost = async (req, res) => {
         }
     } catch (error) {
         res.status(400).json(error);
-        console.log("catch block error",error)
+        console.log("catch block error", error)
     }
 }
 
@@ -39,7 +39,7 @@ exports.getUser = async (req, res) => {
         res.status(200).json(userData)
     } catch (error) {
         res.status(400).json(error);
-        console.log("catch block error",error)
+        console.log("catch block error", error)
     }
 }
 
@@ -54,7 +54,7 @@ exports.getSingleuser = async (req, res) => {
         res.status(200).json(SingleUserData);
     } catch (error) {
         res.status(400).json(error);
-        console.log("catch block error",error)
+        console.log("catch block error", error)
     }
 }
 
@@ -68,20 +68,20 @@ exports.deleteuser = async (req, res) => {
         res.status(200).json(deleteUserData);
     } catch (error) {
         res.status(400).json(error);
-        console.log("catch block error",error)
+        console.log("catch block error", error)
     }
 }
 
 // update user
 exports.updateUser = async (req, res) => {
     const { id } = req.params;
-    const { Name,  Phone_Number, Password } = req.body;
+    const { Name, Phone_Number, Password, Role } = req.body;
 
     try {
         const dateUpdate = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
 
         const updateUserdata = await user.findByIdAndUpdate({ _id: id }, {
-            Name, Phone_Number, Password, dateUpdated: dateUpdate
+            Name, Phone_Number, Password, Role, dateUpdated: dateUpdate
         }, { new: true });
 
         await updateUserdata.save();
@@ -89,6 +89,6 @@ exports.updateUser = async (req, res) => {
         res.status(200).json(updateUserdata)
     } catch (error) {
         res.status(400).json(error);
-        console.log("catch block error",error)
+        console.log("catch block error", error)
     }
 }
