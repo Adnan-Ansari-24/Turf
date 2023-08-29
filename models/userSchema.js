@@ -5,13 +5,13 @@ const validator = require("validator");
 // create users scehma
 
 const userSchema = new mongoose.Schema({
-    Name: {
+    name: {
         type: String,
         required: true,
         trim: true,
     },
 
-    Phone_Number: {
+    phoneNumber: {
         type: Number,
         required: true,
         unique: true,
@@ -19,12 +19,12 @@ const userSchema = new mongoose.Schema({
         maxlength: 10
     },
 
-    Password: {
+    password: {
         type: String,
         required: true,
         minlength: 8
     },
-    Role: {
+    role: {
         type: String,
         enum: ['super_admin', 'admin', 'user'],
         default: 'user'

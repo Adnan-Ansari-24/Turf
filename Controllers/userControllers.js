@@ -3,9 +3,9 @@ const moment = require("moment")
 
 // create user
 exports.userpost = async (req, res) => {
-    const { Name, Phone_Number, Password, Role } = req.body;
+    const { name, phoneNumber, password, role } = req.body;
 
-    if (!Name || !Phone_Number || !Password || !Role) {
+    if (!name || !phoneNumber || !password || !role) {
         res.status(400).json({ error: "All input is required" });
     }
 
@@ -18,7 +18,7 @@ exports.userpost = async (req, res) => {
             const dateCreate = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
 
             const userData = new user({
-                Name, Phone_Number, Password, Role, datecreated: dateCreate
+                name, phoneNumber, password, role, datecreated: dateCreate
             });
 
             await userData.save();
@@ -75,13 +75,13 @@ exports.deleteuser = async (req, res) => {
 // update user
 exports.updateUser = async (req, res) => {
     const { id } = req.params;
-    const { Name, Phone_Number, Password, Role } = req.body;
+    const { name, phoneNumber, password, role } = req.body;
 
     try {
         const dateUpdate = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
 
         const updateUserdata = await user.findByIdAndUpdate({ _id: id }, {
-            Name, Phone_Number, Password, Role, dateUpdated: dateUpdate
+            name, phoneNumber, password, role, dateUpdated: dateUpdate
         }, { new: true });
 
         await updateUserdata.save();

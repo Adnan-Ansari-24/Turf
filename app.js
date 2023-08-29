@@ -8,6 +8,7 @@ const router = require("./Routes/router");
 const PORT = 5001;
 
 
+
 //  cross origin error
 app.use(cors());
 app.use(express.json());
