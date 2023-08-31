@@ -3,23 +3,23 @@ const moment = require("moment")
 
 // create institute
 exports.institutepost = async (req, res) => {
-    const { Location, Discription, Admin_Id } = req.body;
+    const { location, discription, admin_id,phoneNumber } = req.body;
 
-    if (!Location || !Discription || !Admin_Id) {
+    if (!location || !discription || !admin_id || !phoneNumber ) {
         res.status(400).json({ error: "All input is required" });
     }
 
     try {
         const { id } = req.params;
-        const { Location, Discription, Admin_Id } = req.body;
-        const preinstitute = await institute.findOne({ _id: id });
+        const { location, discription, admin_id,phoneNumber } = req.body;
+        const preinstitute = await institute.findOne({ phoneNumber: phoneNumber });
         if (preinstitute) {
             res.status(400).json({ error: "This institute already exist in our database" });
         } else {
             const dateCreate = moment(new Date()).format("DD-MM-YYYY hh:mm:ss");
 
             const instituteData = new institute({
-                Location, Discription, Admin_Id, datecreated: dateCreate
+                location, discription, admin_id,phoneNumber, datecreated: dateCreate
             });
 
             await instituteData.save();
@@ -76,20 +76,20 @@ exports.deleteinstitute = async (req, res) => {
 // update institute
 exports.updateInstitute = async (req, res) => {
     const { id } = req.params;
-    const { Location, Discription, Admin_Id } = req.body;
+    const { location, discription, admin_id,phoneNumber } = req.body;
 
     try {
         const dateUpdate = moment(new Date()).format("DD-MM-YYYY hh:mm:ss");
 
         const updateInstitutedata = await institute.findByIdAndUpdate({ _id: id }, {
-            Location, Discription, Admin_Id, dateUpdated: dateUpdate
+            location, discription, admin_id,phoneNumber,  dateUpdated: dateUpdate
         }, { new: true });
 
-        await updateInstitutedata.save();
+      //  await updateInstitutedata.save();
 
         res.status(200).json(updateInstitutedata)
     } catch (error) {
         res.status(400).json(error);
         console.log("catch block error", error)
-    }
-}
+    };
+};

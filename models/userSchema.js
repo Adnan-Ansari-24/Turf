@@ -9,10 +9,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
+       
     },
 
     phoneNumber: {
-        type: Number,
+        type: String,
         required: true,
         unique: true,
         minlength: 10,
@@ -22,7 +23,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minlength: 8
+        maxlength: 8
     },
     role: {
         type: String,
