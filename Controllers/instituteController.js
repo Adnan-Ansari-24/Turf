@@ -10,7 +10,7 @@ exports.institutepost = async (req, res) => {
     }
 
     try {
-        const { id } = req.params;
+        // const { id } = req.params;
         const { location, discription, admin_id,phoneNumber } = req.body;
         const preinstitute = await institute.findOne({ phoneNumber: phoneNumber });
         if (preinstitute) {
